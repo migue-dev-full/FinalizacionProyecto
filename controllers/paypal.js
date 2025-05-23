@@ -9,7 +9,7 @@ const qs = require('querystring');
 async function getPaypalToken() {
 
     const response = await axios({
-        url: process.env.PAYPAL_BASE_URL + '/v1/oauth2/token',
+        url:  '/v1/oauth2/token',
         method: 'post',
         data: qs.stringify({
             grant_type: 'client_credentials'
@@ -94,7 +94,7 @@ async function createPaypalOrderInternal(articulosCarrito) {
     //console.log('PayPal order payload:', JSON.stringify(payload, null, 2));
 
     const response = await axios({
-        url: process.env.PAYPAL_BASE_URL + '/v2/checkout/orders',
+        url:  '/v2/checkout/orders',
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
@@ -115,6 +115,12 @@ async function createPaypalOrder(req, res) {
         res.json({ approval_url: approveUrl });
     } catch (error) {
         console.error('Error creating PayPal order:', error);
+        if (error.response) {
+            console.error('PayPal API response error:', error.response.data);
+        }
+        if (error.stack) {
+            console.error('Stack trace:', error.stack);
+        }
         res.status(500).json({ error: error.message || 'Error creating PayPal order' });
     }
 }
