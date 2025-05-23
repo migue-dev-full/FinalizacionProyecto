@@ -169,8 +169,8 @@ function mostrarDetallePedido(pedido) {
                // ;
                 console.log('Pedido actualizado:', pedido);
                 console.log('Orden de PayPal creada:', response.data);
-                
-                window.location.href = response.data.approval_url; // Redirect to PayPal approval URL
+                const approval_url = response.data.approval_url;
+                window.location.href = approval_url; // Redirect to PayPal approval URL
                 
                 
             })
