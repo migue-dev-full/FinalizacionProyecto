@@ -53,7 +53,7 @@ app.get('/complete-order', async (req, res) => {
     console.log('Detalles de la transacción:', captureResponse.purchase_units[0].payments.captures[0].amount.currency_code);
 
     // Redirect with token as query parameter so frontend can access it
-    res.redirect(`/complete-order?token=${paymentReference}`);
+    res.redirect(`/complete-order/index.html?token=${req.query.token}`);
     
   } catch (error) {
     console.error('Error in /complete-order route:', error);
