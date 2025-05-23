@@ -148,8 +148,6 @@ function mostrarDetallePedido(pedido) {
             
            
 
-            // Here you can add actual payment logic
-            // Map products to match backend expected format
             const mappedItems = pedido.products.map(prod => ({
                 nombre: prod.id_producto?.nombre || prod.id_producto?.name || 'Producto',
                 precio: prod.id_producto?.precio || prod.id_producto?.price || '0.00',
@@ -180,8 +178,6 @@ function mostrarDetallePedido(pedido) {
                 console.error('Error creando orden de PayPal:', error);
                 alert('Error al procesar el pago. Intente nuevamente.');
             });
-            // Redirect to payment page or handle payment logic
-            // window.location.href = '/pay';
             
         });
     }

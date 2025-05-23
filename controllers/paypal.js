@@ -120,7 +120,7 @@ async function createPaypalOrder(req, res) {
         }
         if (error.stack) {
             console.error('Stack trace:', error.stack);
-        }
+        } //log
         res.status(500).json({ error: error.message || 'Error creating PayPal order' });
     }
 }
