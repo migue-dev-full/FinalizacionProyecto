@@ -83,8 +83,8 @@ async function createPaypalOrderInternal(articulosCarrito) {
             }
         ],
         application_context: {
-            return_url: process.env.BASE_URL + '/complete-order',
-            cancel_url: process.env.BASE_URL + '/perfil',
+            return_url: process.env.REND_URL + '/complete-order',
+            cancel_url: process.env.REND_URL + '/perfil',
             shipping_preference: 'NO_SHIPPING', // Set to 'NO_SHIPPING' if you don't want to collect shipping address
             user_action: 'PAY_NOW',
             brand_name: 'Oculta Web',
