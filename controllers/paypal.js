@@ -9,7 +9,8 @@ const qs = require('querystring');
 async function getPaypalToken() {
 
     const response = await axios({
-        url: 'https://ante-proyecto.onrender.com/' + '/v1/oauth2/token',
+        url: '${process.env.BASE_URL}/v1/oauth2/token',
+        //url: 'https://ante-proyecto.onrender.com/' + '/v1/oauth2/token',
         method: 'post',
         data: qs.stringify({
             grant_type: 'client_credentials'

@@ -161,6 +161,8 @@ function mostrarDetallePedido(pedido) {
                     total: pedido.total,
                     items: mappedItems
                 }
+
+                
             })
             .then(response => {
                console.log(response.data);
