@@ -83,8 +83,8 @@ async function createPaypalOrderInternal(articulosCarrito) {
             }
         ],
         application_context: {
-            return_url: 'https://ante-proyecto.onrender.com/' + '/complete-order',
-            cancel_url: 'https://ante-proyecto.onrender.com/' + '/perfil',
+            return_url: '${process.env.REND_URL}/complete-order',
+            cancel_url: '${process.env.REND_URL}/perfil',
             shipping_preference: 'NO_SHIPPING', // Set to 'NO_SHIPPING' if you don't want to collect shipping address
             user_action: 'PAY_NOW',
             brand_name: 'Oculta Web',
@@ -94,7 +94,8 @@ async function createPaypalOrderInternal(articulosCarrito) {
     //console.log('PayPal order payload:', JSON.stringify(payload, null, 2));
 
     const response = await axios({
-        url: 'https://ante-proyecto.onrender.com/' +  '/v2/checkout/orders',
+        url: `${process.env.BASE_URL}/v2/checkout/orders`,
+        //url:} '/v2/checkout/orders',
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
@@ -131,7 +132,7 @@ async function capturePaypalOrder(orderId) {
         const token = await getPaypalToken();
 
         const response = await axios({
-            url: `${process.env.REND_URL}/v2/checkout/orders/${orderId}/capture`,
+            url: `${process.env.BASE_URL}/v2/checkout/orders/${orderId}/capture`,
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
