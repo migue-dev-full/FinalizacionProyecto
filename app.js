@@ -29,7 +29,16 @@ app.use(express.json())
 
 
 //?/  Rutas de PAYPAL /?//
-app.post('/paypal/order', paypal.createPaypalOrder);
+app.post('/paypal/order', async (req, res) => {
+  try {
+    const url = paypal.createPaypalOrder();
+    res.json(url);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Error al crear el pedido' });
+      }
+})  
+
 
 app.post('/pay', async (req, res) => {
   try {

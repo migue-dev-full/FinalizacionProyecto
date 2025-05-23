@@ -9,7 +9,7 @@ const qs = require('querystring');
 async function getPaypalToken() {
 
     const response = await axios({
-        url: '${process.env.BASE_URL}/v1/oauth2/token',
+        url: '${process.env.PAYPAL_BASE_URL}' + '/oauth2/token',
         //url: 'https://ante-proyecto.onrender.com/' + '/v1/oauth2/token',
         method: 'post',
         data: qs.stringify({
@@ -95,7 +95,7 @@ async function createPaypalOrderInternal(articulosCarrito) {
     //console.log('PayPal order payload:', JSON.stringify(payload, null, 2));
 
     const response = await axios({
-        url: `${process.env.BASE_URL}/v2/checkout/orders`,
+        url: `${process.env.PAYPAL_BASE_URL}` + `/v2/checkout/orders`,
         //url:} '/v2/checkout/orders',
         method: 'post',
         headers: {
@@ -133,7 +133,7 @@ async function capturePaypalOrder(orderId) {
         const token = await getPaypalToken();
 
         const response = await axios({
-            url: `${process.env.BASE_URL}/v2/checkout/orders/${orderId}/capture`,
+            url: `${process.env.PAYPAL_BASE_URL}/v2/checkout/orders/${orderId}/capture`,
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
