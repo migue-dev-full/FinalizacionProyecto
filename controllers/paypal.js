@@ -9,8 +9,7 @@ const qs = require('querystring');
 async function getPaypalToken() {
 
     const response = await axios({
-        url: '${process.env.PAYPAL_BASE_URL}' + '/oauth2/token',
-        //url: 'https://ante-proyecto.onrender.com/' + '/v1/oauth2/token',
+        url: process.env.PAYPAL_BASE_URL + '/v1/oauth2/token',
         method: 'post',
         data: qs.stringify({
             grant_type: 'client_credentials'
@@ -84,8 +83,8 @@ async function createPaypalOrderInternal(articulosCarrito) {
             }
         ],
         application_context: {
-            return_url: '${process.env.REND_URL}/complete-order',
-            cancel_url: '${process.env.REND_URL}/perfil',
+            return_url: process.env.BASE_URL + '/complete-order',
+            cancel_url: process.env.BASE_URL + '/perfil',
             shipping_preference: 'NO_SHIPPING', // Set to 'NO_SHIPPING' if you don't want to collect shipping address
             user_action: 'PAY_NOW',
             brand_name: 'Oculta Web',
@@ -95,8 +94,7 @@ async function createPaypalOrderInternal(articulosCarrito) {
     //console.log('PayPal order payload:', JSON.stringify(payload, null, 2));
 
     const response = await axios({
-        url: `${process.env.PAYPAL_BASE_URL}` + `/v2/checkout/orders`,
-        //url:} '/v2/checkout/orders',
+        url: process.env.PAYPAL_BASE_URL + '/v2/checkout/orders',
         method: 'post',
         headers: {
             'Content-Type': 'application/json',
@@ -117,12 +115,6 @@ async function createPaypalOrder(req, res) {
         res.json({ approval_url: approveUrl });
     } catch (error) {
         console.error('Error creating PayPal order:', error);
-        if (error.response) {
-            console.error('PayPal API response error:', error.response.data);
-        }
-        if (error.stack) {
-            console.error('Stack trace:', error.stack);
-        } //log
         res.status(500).json({ error: error.message || 'Error creating PayPal order' });
     }
 }

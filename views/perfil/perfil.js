@@ -148,21 +148,14 @@ function mostrarDetallePedido(pedido) {
             
            
 
-            const mappedItems = pedido.products.map(prod => ({
-                nombre: prod.id_producto?.nombre || prod.id_producto?.name || 'Producto',
-                precio: prod.id_producto?.precio || prod.id_producto?.price || '0.00',
-                cantidad: prod.cantidad || 1
-            }));
-
+            // Here you can add actual payment logic
             axios.post('/paypal/order', {
                 
                 pedidoId: pedido._id,
                 articulosCarrito: {
                     total: pedido.total,
-                    items: mappedItems
+                    items: pedido.products
                 }
-
-                
             })
             .then(response => {
                console.log(response.data);
@@ -171,8 +164,8 @@ function mostrarDetallePedido(pedido) {
                // ;
                 console.log('Pedido actualizado:', pedido);
                 console.log('Orden de PayPal creada:', response.data);
-                const approval_url = response.data.approval_url;
-                window.location.href = approval_url; // Redirect to PayPal approval URL
+                
+                window.location.href = response.data.approval_url; // Redirect to PayPal approval URL
                 
                 
             })
@@ -180,6 +173,8 @@ function mostrarDetallePedido(pedido) {
                 console.error('Error creando orden de PayPal:', error);
                 alert('Error al procesar el pago. Intente nuevamente.');
             });
+            // Redirect to payment page or handle payment logic
+            // window.location.href = '/pay';
             
         });
     }
