@@ -149,12 +149,19 @@ function mostrarDetallePedido(pedido) {
            
 
             // Here you can add actual payment logic
+            // Map products to match backend expected format
+            const mappedItems = pedido.products.map(prod => ({
+                nombre: prod.id_producto?.nombre || prod.id_producto?.name || 'Producto',
+                precio: prod.id_producto?.precio || prod.id_producto?.price || '0.00',
+                cantidad: prod.cantidad || 1
+            }));
+
             axios.post('/paypal/order', {
                 
                 pedidoId: pedido._id,
                 articulosCarrito: {
                     total: pedido.total,
-                    items: pedido.products
+                    items: mappedItems
                 }
             })
             .then(response => {
