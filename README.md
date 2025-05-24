@@ -70,6 +70,11 @@ Usuario Administrador:
 Email: admin@gmail.com
 Contraseña: Madsv2605*
 
+Credenciales de Prueba Paypal, para prueba de metodo de pago:
+Email:  sb-b2kvl42102249@personal.example.com
+Contraseña:     ?v"2-TSZ
+
+
 
 
 
